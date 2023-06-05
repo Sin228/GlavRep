@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="Model.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="O_Id" ColumnName="O_Id" />
+          <ScalarProperty Name="O_Date" ColumnName="O_Date" />
+          <ScalarProperty Name="O_Status" ColumnName="O_Status" />
+          <ScalarProperty Name="O_Code" ColumnName="O_Code" />
+          <ScalarProperty Name="O_PickPoint" ColumnName="O_PickPoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders_Tovar">
+      <EntityTypeMapping TypeName="Model.Orders_Tovar">
+        <MappingFragment StoreEntitySet="Orders_Tovar">
+          <ScalarProperty Name="OT_Id" ColumnName="OT_Id" />
+          <ScalarProperty Name="OT_Id_Tovar" ColumnName="OT_Id_Tovar" />
+          <ScalarProperty Name="OT_Id_Order" ColumnName="OT_Id_Order" />
+          <ScalarProperty Name="OT_Count" ColumnName="OT_Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PickPoint">
+      <EntityTypeMapping TypeName="Model.PickPoint">
+        <MappingFragment StoreEntitySet="PickPoint">
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="P_Adress" ColumnName="P_Adress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="Model.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="R_Id" ColumnName="R_Id" />
+          <ScalarProperty Name="R_Name" ColumnName="R_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tovar">
+      <EntityTypeMapping TypeName="Model.Tovar">
+        <MappingFragment StoreEntitySet="Tovar">
+          <ScalarProperty Name="T_Id" ColumnName="T_Id" />
+          <ScalarProperty Name="T_Name" ColumnName="T_Name" />
+          <ScalarProperty Name="T_Description" ColumnName="T_Description" />
+          <ScalarProperty Name="T_Manufacturer" ColumnName="T_Manufacturer" />
+          <ScalarProperty Name="T_Price" ColumnName="T_Price" />
+          <ScalarProperty Name="T_Discount" ColumnName="T_Discount" />
+          <ScalarProperty Name="T_Count" ColumnName="T_Count" />
+          <ScalarProperty Name="T_Image" ColumnName="T_Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Model.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="U_Id" ColumnName="U_Id" />
+          <ScalarProperty Name="U_Login" ColumnName="U_Login" />
+          <ScalarProperty Name="U_Password" ColumnName="U_Password" />
+          <ScalarProperty Name="U_Id_Role" ColumnName="U_Id_Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

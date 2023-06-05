@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="O_Id" />
+    </Key>
+    <Property Name="O_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="O_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="O_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="O_Code" Type="Int32" Nullable="false" />
+    <Property Name="O_PickPoint" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PickPoint" Relationship="Self.FK_Orders_PickPoint" FromRole="Orders" ToRole="PickPoint" />
+    <NavigationProperty Name="Orders_Tovar" Relationship="Self.FK_Orders_Tovar_Orders" FromRole="Orders" ToRole="Orders_Tovar" />
+  </EntityType>
+  <EntityType Name="Orders_Tovar">
+    <Key>
+      <PropertyRef Name="OT_Id" />
+    </Key>
+    <Property Name="OT_Id" Type="Int32" Nullable="false" />
+    <Property Name="OT_Id_Tovar" Type="Int32" Nullable="false" />
+    <Property Name="OT_Id_Order" Type="Int32" Nullable="false" />
+    <Property Name="OT_Count" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Tovar_Orders" FromRole="Orders_Tovar" ToRole="Orders" />
+    <NavigationProperty Name="Tovar" Relationship="Self.FK_Orders_Tovar_Tovar" FromRole="Orders_Tovar" ToRole="Tovar" />
+  </EntityType>
+  <EntityType Name="PickPoint">
+    <Key>
+      <PropertyRef Name="P_Id" />
+    </Key>
+    <Property Name="P_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="P_Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_PickPoint" FromRole="PickPoint" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="R_Id" />
+    </Key>
+    <Property Name="R_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="R_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Role" FromRole="Role" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tovar">
+    <Key>
+      <PropertyRef Name="T_Id" />
+    </Key>
+    <Property Name="T_Id" Type="Int32" Nullable="false" />
+    <Property Name="T_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="T_Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="T_Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="T_Price" Type="Int32" Nullable="false" />
+    <Property Name="T_Discount" Type="Int32" />
+    <Property Name="T_Count" Type="Int32" />
+    <Property Name="T_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders_Tovar" Relationship="Self.FK_Orders_Tovar_Tovar" FromRole="Tovar" ToRole="Orders_Tovar" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="U_Id" />
+    </Key>
+    <Property Name="U_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="U_Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="U_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="U_Id_Role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Orders_PickPoint">
+    <End Role="PickPoint" Type="Self.PickPoint" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PickPoint">
+        <PropertyRef Name="P_Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="O_PickPoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Tovar_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Orders_Tovar" Type="Self.Orders_Tovar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="O_Id" />
+      </Principal>
+      <Dependent Role="Orders_Tovar">
+        <PropertyRef Name="OT_Id_Order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Tovar_Tovar">
+    <End Role="Tovar" Type="Self.Tovar" Multiplicity="1" />
+    <End Role="Orders_Tovar" Type="Self.Orders_Tovar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovar">
+        <PropertyRef Name="T_Id" />
+      </Principal>
+      <Dependent Role="Orders_Tovar">
+        <PropertyRef Name="OT_Id_Tovar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="R_Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="U_Id_Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Orders_Tovar" EntityType="Self.Orders_Tovar" />
+    <EntitySet Name="PickPoint" EntityType="Self.PickPoint" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Tovar" EntityType="Self.Tovar" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Orders_PickPoint" Association="Self.FK_Orders_PickPoint">
+      <End Role="PickPoint" EntitySet="PickPoint" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Tovar_Orders" Association="Self.FK_Orders_Tovar_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Orders_Tovar" EntitySet="Orders_Tovar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Tovar_Tovar" Association="Self.FK_Orders_Tovar_Tovar">
+      <End Role="Tovar" EntitySet="Tovar" />
+      <End Role="Orders_Tovar" EntitySet="Orders_Tovar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
